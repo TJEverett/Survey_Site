@@ -1,5 +1,6 @@
 import React from "react";
 import Header from "./Header";
+import SurveyControl from "./SurveyControl";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 
 function App() {
@@ -14,7 +15,7 @@ function App() {
           <h1>Account</h1>
         </Route>
         <Route path="/">
-          <h1>Surveys</h1>
+          <SurveyControl />
         </Route>
       </Switch>
     </BrowserRouter>
