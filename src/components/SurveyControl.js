@@ -1,8 +1,9 @@
 import React from "react";
+import SurveyCreate from "./SurveyCreate";
 
 function SurveyControl(){
   //Temp values to control routing
-  const newBool = false;
+  const newBool = true;
   const surveyStored = null;
   const editBool = false;
   const correctUserBool = false;
@@ -10,7 +11,7 @@ function SurveyControl(){
   //Routing Logic
   let currentComponent = null;
   if(newBool === true){
-    currentComponent = <h1>NEW</h1>;
+    currentComponent = <SurveyCreate />;
   }else if(surveyStored === null){
     currentComponent = <h1>SURVEY LIST</h1>;
   }else if(editBool === true){
