@@ -133,7 +133,7 @@ function SurveyEdit(props) {
             {BuildSelect("answer5", survey.answer5)}
           </div>
           <div style={StylePosition(12, 4)}>
-            <button type="submit">Create Survey</button>
+            <button type="submit">Modify Survey</button>
           </div>
         </div>
       </form>
