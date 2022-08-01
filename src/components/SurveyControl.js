@@ -2,6 +2,7 @@ import React from "react";
 import SurveyCreate from "./SurveyCreate";
 import SurveyEdit from "./SurveyEdit";
 import SurveyList from "./SurveyList";
+import SurveyAnswerForm from "./SurveyAnswerForm";
 
 function SurveyControl(){
   //Temp prop values
@@ -51,9 +52,9 @@ function SurveyControl(){
   
   //Temp values to control routing
   const newBool = false;
-  const surveyStored = null;
-  const editBool = true;
-  const correctUserBool = true;
+  const surveyStored = survey1;
+  const editBool = false;
+  const correctUserBool = false;
 
 
   //Routing Logic
@@ -72,7 +73,7 @@ function SurveyControl(){
     if(correctUserBool === true){
       currentComponent = <h1>RESULTS</h1>;
     }else{
-      currentComponent = <h1>SURVEY FORM</h1>;
+      currentComponent = <SurveyAnswerForm survey={surveyStored}/>;
     }
   }
 
