@@ -5,7 +5,7 @@ function SurveyCreate(){
   const styleTable = {
     display: "grid",
     gridTemplateColumns: "2fr 1fr 3fr",
-    gridTemplateRows: "1fr 3fr 1fr 3fr 1fr 3fr 1fr 3fr 1fr 3fr 1fr"
+    gridTemplateRows: "2fr 1fr 3fr 1fr 3fr 1fr 3fr 1fr 3fr 1fr 3fr 1fr"
   };
   const styleCenter = {
     display: "flex",
@@ -40,57 +40,65 @@ function SurveyCreate(){
       <form onSubmit={null}>
         <div style={styleTable}>
           <div style={StylePosition(1, 1)}>
-            <p>Questions</p>
-          </div>
-          <div style={StylePosition(1, 2)}>
-            <p>Answer Type</p>
+            <p>Survey Title:</p>
+            <br/>
+            <input
+              type="text"
+              name="title"
+              placeholder="Survey Title" />
           </div>
           <div style={StylePosition(2, 1)}>
+            <p>Questions</p>
+          </div>
+          <div style={StylePosition(2, 2)}>
+            <p>Answer Type</p>
+          </div>
+          <div style={StylePosition(3, 1)}>
             <textarea
               name="question1"
               placeholder="Question #1"
               style={styleTextArea} />
           </div>
-          <div style={StylePosition(2, 2)}>
+          <div style={StylePosition(3, 2)}>
             {BuildSelect("answer1")}
           </div>
-          <div style={StylePosition(4, 1)}>
+          <div style={StylePosition(5, 1)}>
             <textarea
               name="question2"
               placeholder="Question #2"
               style={styleTextArea} />
           </div>
-          <div style={StylePosition(4, 2)}>
+          <div style={StylePosition(5, 2)}>
             {BuildSelect("answer2")}
           </div>
-          <div style={StylePosition(6, 1)}>
+          <div style={StylePosition(7, 1)}>
             <textarea
               name="question3"
               placeholder="Question #3"
               style={styleTextArea} />
           </div>
-          <div style={StylePosition(6, 2)}>
+          <div style={StylePosition(7, 2)}>
             {BuildSelect("answer3")}
           </div>
-          <div style={StylePosition(8, 1)}>
+          <div style={StylePosition(9, 1)}>
             <textarea
               name="question4"
               placeholder="Question #4"
               style={styleTextArea} />
           </div>
-          <div style={StylePosition(8, 2)}>
+          <div style={StylePosition(9, 2)}>
             {BuildSelect("answer4")}
           </div>
-          <div style={StylePosition(10, 1)}>
+          <div style={StylePosition(11, 1)}>
             <textarea
               name="question5"
               placeholder="Question #5"
               style={styleTextArea} />
           </div>
-          <div style={StylePosition(10, 2)}>
+          <div style={StylePosition(11, 2)}>
             {BuildSelect("answer5")}
           </div>
-          <div style={StylePosition(11, 3)}>
+          <div style={StylePosition(12, 3)}>
             <button type="submit">Create Survey</button>
           </div>
         </div>

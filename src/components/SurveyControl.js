@@ -5,6 +5,7 @@ import SurveyEdit from "./SurveyEdit";
 function SurveyControl(){
   //Temp prop values
   const survey1 = {
+    title: "Fruit Survey",
     question1: "Rate your enjoyment of eating",
     answer1: "stars",
     question2: "Rate your enjoyment of fruit",
@@ -18,7 +19,7 @@ function SurveyControl(){
   }
   
   //Temp values to control routing
-  const newBool = false;
+  const newBool = true;
   const surveyStored = survey1;
   const editBool = true;
   const correctUserBool = true;
