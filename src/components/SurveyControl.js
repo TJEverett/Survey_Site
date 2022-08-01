@@ -1,10 +1,12 @@
 import React from "react";
 import SurveyCreate from "./SurveyCreate";
 import SurveyEdit from "./SurveyEdit";
+import SurveyList from "./SurveyList";
 
 function SurveyControl(){
   //Temp prop values
   const survey1 = {
+    id: "1a",
     title: "Fruit Survey",
     question1: "Rate your enjoyment of eating",
     answer1: "stars",
@@ -16,11 +18,40 @@ function SurveyControl(){
     answer4: "stars",
     question5: "What are your 3 favorite candies?",
     answer5: "text"
-  }
+  };
+  const survey2 = {
+    id: "2b",
+    title: "Veggie Survey",
+    question1: "Rate your enjoyment of eating",
+    answer1: "stars",
+    question2: "Rate your enjoyment of vegetables",
+    answer2: "stars",
+    question3: "What are your 3 favorite vegetables?",
+    answer3: "text",
+    question4: "Rate your enjoyment of salads",
+    answer4: "stars",
+    question5: "What are your 3 favorite types of salad?",
+    answer5: "text"
+  };
+  const survey3 = {
+    id: "3c",
+    title: "Protein Survey",
+    question1: "Rate your enjoyment of eating",
+    answer1: "stars",
+    question2: "Rate your enjoyment of meat",
+    answer2: "stars",
+    question3: "What are your 3 favorite meats?",
+    answer3: "text",
+    question4: "Rate your enjoyment of seafood",
+    answer4: "stars",
+    question5: "What are your 3 favorite types of seafood?",
+    answer5: "text"
+  };
+  const surveyList = [survey1, survey2, survey3];
   
   //Temp values to control routing
-  const newBool = true;
-  const surveyStored = survey1;
+  const newBool = false;
+  const surveyStored = null;
   const editBool = true;
   const correctUserBool = true;
 
@@ -30,7 +61,7 @@ function SurveyControl(){
   if(newBool === true){
     currentComponent = <SurveyCreate />;
   }else if(surveyStored === null){
-    currentComponent = <h1>SURVEY LIST</h1>;
+    currentComponent = <SurveyList listedSurveys={surveyList} />;
   }else if(editBool === true){
     if(correctUserBool === true){
       currentComponent = <SurveyEdit survey={surveyStored} />;
