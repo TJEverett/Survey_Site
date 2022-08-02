@@ -25,7 +25,7 @@ function SurveyAnswerForm(props) {
 
   //Element Functions
   function BuildSelect(idValue) {
-    const optionsList = [{ optionValue: 1, displayString: "1 Star" }, { optionValue: 2, displayString: "2 Star" }, { optionValue: 3, displayString: "3 Star" }, { optionValue: 4, displayString: "4 Star" }, { optionValue: 5, displayString: "5 Star" }];
+    const optionsList = [{ optionValue: "1 Star", displayString: "1 Star" }, { optionValue: "2 Star", displayString: "2 Star" }, { optionValue: "3 Star", displayString: "3 Star" }, { optionValue: "4 Star", displayString: "4 Star" }, { optionValue: "5 Star", displayString: "5 Star" }];
     let selectListOptions = [];
     optionsList.forEach((entry, index) => {
       selectListOptions.push(<option key={index} value={entry.optionValue}>{entry.displayString}</option>);
@@ -48,7 +48,7 @@ function SurveyAnswerForm(props) {
   //Return Logic
   return (
     <React.Fragment>
-      <h1 style={styleCenter}>Survey Creator</h1>
+      <h1 style={styleCenter}>Survey Response</h1>
       <form onSubmit={null}>
         <div style={styleTable}>
           <div style={StylePosition(1, 1)}>
