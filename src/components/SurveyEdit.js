@@ -42,7 +42,7 @@ function SurveyEdit(props) {
   //Return Logic
   return (
     <React.Fragment>
-      <h1 style={styleCenter}>Survey Creator</h1>
+      <h1 style={styleCenter}>Survey Editor</h1>
       <form onSubmit={null}>
         <div style={styleTable}>
           <div style={StylePosition(1, 1)}>
