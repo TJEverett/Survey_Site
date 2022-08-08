@@ -3,6 +3,7 @@ import SurveyCreate from "./SurveyCreate";
 import SurveyEdit from "./SurveyEdit";
 import SurveyList from "./SurveyList";
 import SurveyAnswerForm from "./SurveyAnswerForm";
+import SurveyResults from "./SurveyResult";
 
 function SurveyControl(){
   //Temp prop values
@@ -49,12 +50,67 @@ function SurveyControl(){
     answer5: "text"
   };
   const surveyList = [survey1, survey2, survey3];
+  const result1 = {
+    id: "q1",
+    surveyId: "1a",
+    response1: "4 Star",
+    response2: "1 Star",
+    response3: "none",
+    response4: "5 Star",
+    response5: "Moonstruck, Reese's, Hershey"
+  };
+  const result2 = {
+    id: "w2",
+    surveyId: "2b",
+    response1: "1 Star",
+    response2: "1 Star",
+    response3: "depends on the seasoning",
+    response4: "1 Star",
+    response5: "salads are garbage"
+  };
+  const result3 = {
+    id: "e3",
+    surveyId: "1a",
+    response1: "2 Star",
+    response2: "5 Star",
+    response3: "mango, guava, pineapple",
+    response4: "3 Star",
+    response5: "Starburst, Skittles, Mike & Ikes"
+  };
+  const result4 = {
+    id: "r4",
+    surveyId: "3c",
+    response1: "4 Star",
+    response2: "1 Star",
+    response3: "I am pescatarian",
+    response4: "2 Star",
+    response5: "shrimp, scallops, cod"
+  };
+  const result5 = {
+    id: "t5",
+    surveyId: "3c",
+    response1: "5 Star",
+    response2: "5 Star",
+    response3: "T-bone, sirloin, ribs",
+    response4: "1 Star",
+    response5: "beef is all I need"
+  };
+  const result6 = {
+    id: "y6",
+    surveyId: "2b",
+    response1: "5 Star",
+    response2: "4 Star",
+    response3: "pickles, tomatoes, broccoli",
+    response4: "2 Star",
+    response5: "I only eat cesar salads"
+  };
+  const resultList = [result1, result2, result3, result4, result5, result6];
   
   //Temp values to control routing
   const newBool = false;
   const surveyStored = survey1;
   const editBool = false;
-  const correctUserBool = false;
+  const correctUserBool = true;
 
 
   //Routing Logic
@@ -71,7 +127,7 @@ function SurveyControl(){
     }
   }else{
     if(correctUserBool === true){
-      currentComponent = <h1>RESULTS</h1>;
+      currentComponent = <SurveyResults survey={surveyStored} responses={resultList}/>;
     }else{
       currentComponent = <SurveyAnswerForm survey={surveyStored}/>;
     }
