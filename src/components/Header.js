@@ -28,13 +28,13 @@ function Header(){
       
       <div style={styleTable}>
         <div style={styleLeft}>
-          <Link to="/">Surveys</Link>
+          <Link to="/"><button>Surveys</button></Link>
         </div>
         <div style={styleCenter}>
-          <Link to="/dashboard">Dashboard</Link>
+          <Link to="/dashboard"><button>Dashboard</button></Link>
         </div>
         <div style={styleRight}>
-          <Link to="/account">Account</Link>
+          <Link to="/account"><button>Account</button></Link>
         </div>
       </div>
     </React.Fragment>

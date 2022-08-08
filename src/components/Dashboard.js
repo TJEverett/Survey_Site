@@ -84,8 +84,8 @@ function Dashboard() {
                   <h3>{entry.title} Details</h3>
                 </div>
                 <div style={StylePosition(1, 2)}>
-                  <Link to="/" onClick={() => console.log("pressed update on " + entry.id)}>Update</Link>
-                  <Link to="/dashboard" onClick={() => console.log("pressed delete on " + entry.id)}>Delete</Link>
+                  <Link to="/" onClick={() => console.log("pressed update on " + entry.id)}><button>Update</button></Link>
+                  <Link to="/dashboard" onClick={() => console.log("pressed delete on " + entry.id)}><button>Delete</button></Link>
                 </div>
               </div>
               <br/>
