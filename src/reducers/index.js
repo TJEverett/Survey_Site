@@ -1,10 +1,10 @@
 import { combineReducers } from "redux";
-import test_one from "./test_one";
-import test_two from "./test_two";
+import surveyNavReducer from "./survey-nav-reducer";
+import surveySelectReducer from "./survey-select-reducer";
 
 const rootReducer = combineReducers({
-  one: test_one,
-  two: test_two
+  surveyNav: surveyNavReducer,
+  surveySelect: surveySelectReducer
 });
 
 export default rootReducer;
