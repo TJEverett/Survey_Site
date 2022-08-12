@@ -1,5 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import * as a from "../actions/index";
 
 function Header(){
   //Style Logic
@@ -21,6 +23,15 @@ function Header(){
     justifyContent: "flex-end"
   };
 
+  //Dispatch Logic
+  const dispatch = useDispatch();
+  function RedirectClear() {
+    const action1 = a.surveyDeselect();
+    const action2 = a.goOther();
+    dispatch(action1);
+    dispatch(action2);
+  }
+
   //Return Logic
   return (
     <React.Fragment>
@@ -28,13 +39,13 @@ function Header(){
       
       <div style={styleTable}>
         <div style={styleLeft}>
-          <Link to="/"><button>Surveys</button></Link>
+          <Link to="/"><button onClick={RedirectClear}>Surveys</button></Link>
         </div>
         <div style={styleCenter}>
-          <Link to="/dashboard"><button>Dashboard</button></Link>
+          <Link to="/dashboard"><button onClick={RedirectClear}>Dashboard</button></Link>
         </div>
         <div style={styleRight}>
-          <Link to="/account"><button>Account</button></Link>
+          <Link to="/account"><button onClick={RedirectClear}>Account</button></Link>
         </div>
       </div>
     </React.Fragment>
