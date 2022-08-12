@@ -1,4 +1,6 @@
 import React from "react";
+import { useDispatch } from "react-redux";
+import * as a from "../actions/index";
 
 function SurveyCreate(){
   //CSS Styling
@@ -33,11 +35,32 @@ function SurveyCreate(){
     return (<React.Fragment>{selectList}</React.Fragment>);
   }
 
+  const dispatch = useDispatch();
+  function FormSubmit(event){
+    event.preventDefault();
+    const action1 = a.goOther();
+    dispatch(action1);
+    const newSurvey = {
+      title: event.target.title.value,
+      question1: event.target.question1.value,
+      answer1: event.target.answer1.value,
+      question2: event.target.question2.value,
+      answer2: event.target.answer2.value,
+      question3: event.target.question3.value,
+      answer3: event.target.answer3.value,
+      question4: event.target.question4.value,
+      answer4: event.target.answer4.value,
+      question5: event.target.question5.value,
+      answer5: event.target.answer5.value
+    };
+    console.log(newSurvey); //Replace with firestore .add()
+  }
+
   //Return Logic
   return (
     <React.Fragment>
       <h1 style={styleCenter}>Survey Creator</h1>
-      <form onSubmit={null}>
+      <form onSubmit={FormSubmit}>
         <div style={styleTable}>
           <div style={StylePosition(1, 1)}>
             <p>Survey Title:</p>
@@ -45,6 +68,7 @@ function SurveyCreate(){
             <input
               type="text"
               name="title"
+              required={true}
               placeholder="Survey Title" />
           </div>
           <div style={StylePosition(2, 1)}>
@@ -56,6 +80,7 @@ function SurveyCreate(){
           <div style={StylePosition(3, 1)}>
             <textarea
               name="question1"
+              required={true}
               placeholder="Question #1"
               style={styleTextArea} />
           </div>
@@ -65,6 +90,7 @@ function SurveyCreate(){
           <div style={StylePosition(5, 1)}>
             <textarea
               name="question2"
+              required={true}
               placeholder="Question #2"
               style={styleTextArea} />
           </div>
@@ -74,6 +100,7 @@ function SurveyCreate(){
           <div style={StylePosition(7, 1)}>
             <textarea
               name="question3"
+              required={true}
               placeholder="Question #3"
               style={styleTextArea} />
           </div>
@@ -83,6 +110,7 @@ function SurveyCreate(){
           <div style={StylePosition(9, 1)}>
             <textarea
               name="question4"
+              required={true}
               placeholder="Question #4"
               style={styleTextArea} />
           </div>
@@ -92,6 +120,7 @@ function SurveyCreate(){
           <div style={StylePosition(11, 1)}>
             <textarea
               name="question5"
+              required={true}
               placeholder="Question #5"
               style={styleTextArea} />
           </div>
