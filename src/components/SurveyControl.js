@@ -4,52 +4,10 @@ import SurveyEdit from "./SurveyEdit";
 import SurveyList from "./SurveyList";
 import SurveyAnswerForm from "./SurveyAnswerForm";
 import SurveyResults from "./SurveyResult";
+import { useSelector } from "react-redux";
 
-function SurveyControl(){
+function SurveyControl(props){
   //Temp prop values
-  const survey1 = {
-    id: "1a",
-    title: "Fruit Survey",
-    question1: "Rate your enjoyment of eating",
-    answer1: "stars",
-    question2: "Rate your enjoyment of fruit",
-    answer2: "stars",
-    question3: "What are your 3 favorite fruits?",
-    answer3: "text",
-    question4: "Rate your enjoyment of candy",
-    answer4: "stars",
-    question5: "What are your 3 favorite candies?",
-    answer5: "text"
-  };
-  const survey2 = {
-    id: "2b",
-    title: "Veggie Survey",
-    question1: "Rate your enjoyment of eating",
-    answer1: "stars",
-    question2: "Rate your enjoyment of vegetables",
-    answer2: "stars",
-    question3: "What are your 3 favorite vegetables?",
-    answer3: "text",
-    question4: "Rate your enjoyment of salads",
-    answer4: "stars",
-    question5: "What are your 3 favorite types of salad?",
-    answer5: "text"
-  };
-  const survey3 = {
-    id: "3c",
-    title: "Protein Survey",
-    question1: "Rate your enjoyment of eating",
-    answer1: "stars",
-    question2: "Rate your enjoyment of meat",
-    answer2: "stars",
-    question3: "What are your 3 favorite meats?",
-    answer3: "text",
-    question4: "Rate your enjoyment of seafood",
-    answer4: "stars",
-    question5: "What are your 3 favorite types of seafood?",
-    answer5: "text"
-  };
-  const surveyList = [survey1, survey2, survey3];
   const result1 = {
     id: "q1",
     surveyId: "1a",
@@ -107,29 +65,29 @@ function SurveyControl(){
   const resultList = [result1, result2, result3, result4, result5, result6];
   
   //Temp values to control routing
-  const newBool = false;
-  const surveyStored = survey1;
-  const editBool = false;
   const correctUserBool = true;
 
+  //Redux Values
+  const surveyNav = useSelector((state) => state.surveyNav);
+  const surveySelect = useSelector((state) => state.surveySelect);
 
   //Routing Logic
   let currentComponent = null;
-  if(newBool === true){
+  if(surveyNav.create === true){
     currentComponent = <SurveyCreate />;
-  }else if(surveyStored === null){
-    currentComponent = <SurveyList listedSurveys={surveyList} />;
-  }else if(editBool === true){
+  }else if(surveySelect === null){
+    currentComponent = <SurveyList />;
+  }else if(surveyNav.edit === true){
     if(correctUserBool === true){
-      currentComponent = <SurveyEdit survey={surveyStored} />;
+      currentComponent = <SurveyEdit survey={surveySelect} />;
     }else{
       currentComponent = <h2>Please log in to edit</h2>;
     }
   }else{
     if(correctUserBool === true){
-      currentComponent = <SurveyResults survey={surveyStored} responses={resultList}/>;
+      currentComponent = <SurveyResults responses={resultList} survey={surveySelect} />;
     }else{
-      currentComponent = <SurveyAnswerForm survey={surveyStored}/>;
+      currentComponent = <SurveyAnswerForm survey={surveySelect} />;
     }
   }
 
