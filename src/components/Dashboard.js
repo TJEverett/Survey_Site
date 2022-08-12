@@ -1,5 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import * as a from "../actions/index";
 
 function Dashboard() {
   //Temp prop values
@@ -54,7 +56,9 @@ function Dashboard() {
   const styleTable = {
     display: "grid",
     gridTemplateColumns: "5fr 1fr",
-    gridTemplateRows: "1fr",
+    gridTemplateRows: "1fr"
+  };
+  const styleBubble = {
     position: "relative",
     padding: "10px",
     borderRadius: "20px",
@@ -71,21 +75,48 @@ function Dashboard() {
     return { gridArea: tempString, display: "flex", alignItems: "center", justifyContent: "center", flexDirection: "column" };
   };
 
+  //Dispatch Logic
+  const dispatch = useDispatch();
+  function RedirectToSurvey(survey) {
+    const action1 = a.surveySelect(survey);
+    const action2 = a.goOther();
+    dispatch(action1);
+    dispatch(action2);
+  }
+  function RedirectToEdit(survey) {
+    const action1 = a.surveySelect(survey);
+    const action2 = a.goEdit();
+    dispatch(action1);
+    dispatch(action2);
+  }
+  function RedirectToCreate() {
+    const action1 = a.goCreate()
+    dispatch(action1);
+  }
+  function DeleteAction(id) {
+    console.log("pressed delete on " + id); //Replace with firestore .delete
+  }
+  
+
   //Return Logic
   if(loggedIn === true){
     return (
       <React.Fragment>
         <h1 style={styleCenter}>Dashboard</h1>
+        <div style={styleBubble}>
+          <Link to="/" onClick={RedirectToCreate}><h3 style={styleCenter}>NEW</h3></Link>
+        </div>
+        <br />
         {surveyList.map(entry => {
           return (
             <div key={entry.id}>
-              <div style={styleTable}>
+              <div style={{...styleTable, ...styleBubble}}>
                 <div style={StylePosition(1, 1)}>
-                  <h3>{entry.title} Details</h3>
+                  <Link to="/" onClick={() => RedirectToSurvey(entry)}><h3>{entry.title} Details</h3></Link>
                 </div>
                 <div style={StylePosition(1, 2)}>
-                  <Link to="/" onClick={() => console.log("pressed update on " + entry.id)}><button>Update</button></Link>
-                  <Link to="/dashboard" onClick={() => console.log("pressed delete on " + entry.id)}><button>Delete</button></Link>
+                  <Link to="/" onClick={() => RedirectToEdit(entry)}><button>Update</button></Link>
+                  <Link to="/dashboard" onClick={() => DeleteAction(entry.id)}><button>Delete</button></Link>
                 </div>
               </div>
               <br/>
