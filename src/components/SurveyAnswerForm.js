@@ -1,5 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { useDispatch } from "react-redux";
+import * as a from "../actions/index";
 
 function SurveyAnswerForm(props) {
   //CSS Styling
@@ -45,11 +47,27 @@ function SurveyAnswerForm(props) {
   //Value Logic
   const { survey } = props;
 
+  const dispatch = useDispatch();
+  function FormSubmit(event){
+    event.preventDefault();
+    const action1 = a.surveyDeselect();
+    dispatch(action1);
+    const newResponse = {
+      surveyId: survey.id,
+      response1: event.target.response1.value,
+      response2: event.target.response2.value,
+      response3: event.target.response3.value,
+      response4: event.target.response4.value,
+      response5: event.target.response5.value
+    }
+    console.log(newResponse); //Replace with firestore .add()
+  }
+
   //Return Logic
   return (
     <React.Fragment>
       <h1 style={styleCenter}>Survey Response</h1>
-      <form onSubmit={null}>
+      <form onSubmit={FormSubmit}>
         <div style={styleTable}>
           <div style={StylePosition(1, 1)}>
             <p>{survey.title}:</p>
