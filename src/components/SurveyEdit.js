@@ -1,5 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { useDispatch } from "react-redux";
+import * as a from "../actions/index";
 
 function SurveyEdit(props) {
   //CSS Styling
@@ -39,11 +41,27 @@ function SurveyEdit(props) {
   //Value Logic
   const { survey } = props;
 
+  const dispatch = useDispatch();
+  function FormSubmit(event) {
+    event.preventDefault();
+    const action1 = a.goOther();
+    dispatch(action1);
+    const updatedProperties = {
+      title: event.target.title.value,
+      question1: event.target.question1.value,
+      question2: event.target.question2.value,
+      question3: event.target.question3.value,
+      question4: event.target.question4.value,
+      question5: event.target.question5.value
+    };
+    console.log(updatedProperties); //Replace with firestore .update()
+  }
+
   //Return Logic
   return (
     <React.Fragment>
       <h1 style={styleCenter}>Survey Editor</h1>
-      <form onSubmit={null}>
+      <form onSubmit={FormSubmit}>
         <div style={styleTable}>
           <div style={StylePosition(1, 1)}>
             <p>Old Survey Title:</p>
@@ -55,6 +73,7 @@ function SurveyEdit(props) {
             <input
               type="text"
               name="title"
+              required={true}
               placeholder="Survey Title"
               defaultValue={survey.title} />
           </div>
@@ -73,6 +92,7 @@ function SurveyEdit(props) {
           <div style={StylePosition(3, 2)}>
             <textarea
               name="question1"
+              required={true}
               placeholder="Question #1"
               defaultValue={survey.question1}
               style={styleTextArea} />
@@ -86,6 +106,7 @@ function SurveyEdit(props) {
           <div style={StylePosition(5, 2)}>
             <textarea
               name="question2"
+              required={true}
               placeholder="Question #2"
               defaultValue={survey.question2}
               style={styleTextArea} />
@@ -99,6 +120,7 @@ function SurveyEdit(props) {
           <div style={StylePosition(7, 2)}>
             <textarea
               name="question3"
+              required={true}
               placeholder="Question #3"
               defaultValue={survey.question3}
               style={styleTextArea} />
@@ -112,6 +134,7 @@ function SurveyEdit(props) {
           <div style={StylePosition(9, 2)}>
             <textarea
               name="question4"
+              required={true}
               placeholder="Question #4"
               defaultValue={survey.question4}
               style={styleTextArea} />
@@ -125,6 +148,7 @@ function SurveyEdit(props) {
           <div style={StylePosition(11, 2)}>
             <textarea
               name="question5"
+              required={true}
               placeholder="Question #5"
               defaultValue={survey.question5}
               style={styleTextArea} />
