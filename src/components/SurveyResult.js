@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { connect } from "react-redux";
 
 class SurveyResults extends React.Component{
   constructor(props) {
@@ -9,6 +10,18 @@ class SurveyResults extends React.Component{
       position: 0,
       responseList: relevantResponses
     }
+  }
+
+  PositionUp = () => {
+    this.setState((previousState) => {
+      return {position: (previousState.position + 1)};
+    });
+  }
+
+  PositionDown = () => {
+    this.setState((previousState) => {
+      return {position: (previousState.position - 1)};
+    });
   }
 
   render() {
@@ -28,8 +41,8 @@ class SurveyResults extends React.Component{
     };
 
     //Component Logic
-    let backButton = <button>Last Response</button>;
-    let forwardButton = <button>Next Response</button>;
+    let backButton = <button onClick={this.PositionDown}>Last Response</button>;
+    let forwardButton = <button onClick={this.PositionUp}>Next Response</button>;
     if(this.state.position < 1){
       backButton = <button disabled>Last Response</button>
     }
