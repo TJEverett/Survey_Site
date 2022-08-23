@@ -1,8 +1,15 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 import * as a from "../actions/index";
+import { isLoaded, useFirestore } from "react-redux-firebase";
+import firebase from "firebase";
 
 function SurveyCreate(){
+  //Variable Decelerations
+  const dispatch = useDispatch();
+  const firestore = useFirestore();
+  const auth = firebase.auth();
+
   //CSS Styling
   const styleTable = {
     display: "grid",
@@ -35,12 +42,12 @@ function SurveyCreate(){
     return (<React.Fragment>{selectList}</React.Fragment>);
   }
 
-  const dispatch = useDispatch();
   function FormSubmit(event){
     event.preventDefault();
     const action1 = a.goOther();
     dispatch(action1);
     const newSurvey = {
+      creator: auth.currentUser.uid,
       title: event.target.title.value,
       question1: event.target.question1.value,
       answer1: event.target.answer1.value,
@@ -53,87 +60,99 @@ function SurveyCreate(){
       question5: event.target.question5.value,
       answer5: event.target.answer5.value
     };
-    console.log(newSurvey); //Replace with firestore .add()
+    return firestore.collection("surveys").add(newSurvey);
   }
 
   //Return Logic
-  return (
-    <React.Fragment>
-      <h1 style={styleCenter}>Survey Creator</h1>
-      <form onSubmit={FormSubmit}>
-        <div style={styleTable}>
-          <div style={StylePosition(1, 1)}>
-            <p>Survey Title:</p>
-            <br/>
-            <input
-              type="text"
-              name="title"
-              required={true}
-              placeholder="Survey Title" />
+  if(!isLoaded(auth)){
+    return(
+      <h1>Loading...</h1>
+    );
+  }
+  if(isLoaded(auth) && auth.currentUser == null){
+    return(
+      <h1>Please go to <span style={{color: "red"}}>Account</span> and log in to view.</h1>
+    );
+  }
+  if(isLoaded(auth) && auth.currentUser != null){
+    return (
+      <React.Fragment>
+        <h1 style={styleCenter}>Survey Creator</h1>
+        <form onSubmit={FormSubmit}>
+          <div style={styleTable}>
+            <div style={StylePosition(1, 1)}>
+              <p>Survey Title:</p>
+              <br/>
+              <input
+                type="text"
+                name="title"
+                required={true}
+                placeholder="Survey Title" />
+            </div>
+            <div style={StylePosition(2, 1)}>
+              <p>Questions</p>
+            </div>
+            <div style={StylePosition(2, 2)}>
+              <p>Answer Type</p>
+            </div>
+            <div style={StylePosition(3, 1)}>
+              <textarea
+                name="question1"
+                required={true}
+                placeholder="Question #1"
+                style={styleTextArea} />
+            </div>
+            <div style={StylePosition(3, 2)}>
+              {BuildSelect("answer1")}
+            </div>
+            <div style={StylePosition(5, 1)}>
+              <textarea
+                name="question2"
+                required={true}
+                placeholder="Question #2"
+                style={styleTextArea} />
+            </div>
+            <div style={StylePosition(5, 2)}>
+              {BuildSelect("answer2")}
+            </div>
+            <div style={StylePosition(7, 1)}>
+              <textarea
+                name="question3"
+                required={true}
+                placeholder="Question #3"
+                style={styleTextArea} />
+            </div>
+            <div style={StylePosition(7, 2)}>
+              {BuildSelect("answer3")}
+            </div>
+            <div style={StylePosition(9, 1)}>
+              <textarea
+                name="question4"
+                required={true}
+                placeholder="Question #4"
+                style={styleTextArea} />
+            </div>
+            <div style={StylePosition(9, 2)}>
+              {BuildSelect("answer4")}
+            </div>
+            <div style={StylePosition(11, 1)}>
+              <textarea
+                name="question5"
+                required={true}
+                placeholder="Question #5"
+                style={styleTextArea} />
+            </div>
+            <div style={StylePosition(11, 2)}>
+              {BuildSelect("answer5")}
+            </div>
+            <div style={StylePosition(12, 3)}>
+              <button type="submit">Create Survey</button>
+            </div>
           </div>
-          <div style={StylePosition(2, 1)}>
-            <p>Questions</p>
-          </div>
-          <div style={StylePosition(2, 2)}>
-            <p>Answer Type</p>
-          </div>
-          <div style={StylePosition(3, 1)}>
-            <textarea
-              name="question1"
-              required={true}
-              placeholder="Question #1"
-              style={styleTextArea} />
-          </div>
-          <div style={StylePosition(3, 2)}>
-            {BuildSelect("answer1")}
-          </div>
-          <div style={StylePosition(5, 1)}>
-            <textarea
-              name="question2"
-              required={true}
-              placeholder="Question #2"
-              style={styleTextArea} />
-          </div>
-          <div style={StylePosition(5, 2)}>
-            {BuildSelect("answer2")}
-          </div>
-          <div style={StylePosition(7, 1)}>
-            <textarea
-              name="question3"
-              required={true}
-              placeholder="Question #3"
-              style={styleTextArea} />
-          </div>
-          <div style={StylePosition(7, 2)}>
-            {BuildSelect("answer3")}
-          </div>
-          <div style={StylePosition(9, 1)}>
-            <textarea
-              name="question4"
-              required={true}
-              placeholder="Question #4"
-              style={styleTextArea} />
-          </div>
-          <div style={StylePosition(9, 2)}>
-            {BuildSelect("answer4")}
-          </div>
-          <div style={StylePosition(11, 1)}>
-            <textarea
-              name="question5"
-              required={true}
-              placeholder="Question #5"
-              style={styleTextArea} />
-          </div>
-          <div style={StylePosition(11, 2)}>
-            {BuildSelect("answer5")}
-          </div>
-          <div style={StylePosition(12, 3)}>
-            <button type="submit">Create Survey</button>
-          </div>
-        </div>
-      </form>
-    </React.Fragment>
-  );
+        </form>
+      </React.Fragment>
+    );
+  }
 }
 
 export default SurveyCreate;
