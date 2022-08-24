@@ -1,56 +1,21 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import * as a from "../actions/index";
+import firebase from "firebase";
+import { isLoaded, useFirestoreConnect } from "react-redux-firebase";
 
 function Dashboard() {
-  //Temp prop values
-  const survey1 = {
-    id: "1a",
-    title: "Fruit Survey",
-    question1: "Rate your enjoyment of eating",
-    answer1: "stars",
-    question2: "Rate your enjoyment of fruit",
-    answer2: "stars",
-    question3: "What are your 3 favorite fruits?",
-    answer3: "text",
-    question4: "Rate your enjoyment of candy",
-    answer4: "stars",
-    question5: "What are your 3 favorite candies?",
-    answer5: "text"
-  };
-  const survey2 = {
-    id: "2b",
-    title: "Veggie Survey",
-    question1: "Rate your enjoyment of eating",
-    answer1: "stars",
-    question2: "Rate your enjoyment of vegetables",
-    answer2: "stars",
-    question3: "What are your 3 favorite vegetables?",
-    answer3: "text",
-    question4: "Rate your enjoyment of salads",
-    answer4: "stars",
-    question5: "What are your 3 favorite types of salad?",
-    answer5: "text"
-  };
-  const survey3 = {
-    id: "3c",
-    title: "Protein Survey",
-    question1: "Rate your enjoyment of eating",
-    answer1: "stars",
-    question2: "Rate your enjoyment of meat",
-    answer2: "stars",
-    question3: "What are your 3 favorite meats?",
-    answer3: "text",
-    question4: "Rate your enjoyment of seafood",
-    answer4: "stars",
-    question5: "What are your 3 favorite types of seafood?",
-    answer5: "text"
-  };
-  const surveyList = [survey1, survey2, survey3];
+  //Database Connection
+  useFirestoreConnect([
+    {collection: "surveys"}
+  ]);
 
-  //Temp values to control routing
-  const loggedIn = true;
+  //Variable Decelerations
+  const auth = firebase.auth();
+  const surveyDbList = useSelector(state => state.firestore.ordered.surveys);
+  let surveyList = [];
+  
 
   //CSS Styling
   const styleTable = {
@@ -99,7 +64,13 @@ function Dashboard() {
   
 
   //Return Logic
-  if(loggedIn === true){
+  if(!isLoaded(auth) || !isLoaded(surveyList)){
+    return(
+      <h1>Loading...</h1>
+    )
+  }
+  if(isLoaded(auth) && auth.currentUser != null){
+    surveyList = surveyDbList.filter((survey) => survey.creator === auth.currentUser.uid);
     return (
       <React.Fragment>
         <h1 style={styleCenter}>Dashboard</h1>
@@ -126,7 +97,7 @@ function Dashboard() {
       </React.Fragment>
     );
   }
-  if(loggedIn === false){
+  if(isLoaded(auth) && auth.currentUser == null){
     return (
       <React.Fragment>
         <h1 style={styleCenter}>Please log in to view your dashboard</h1>
