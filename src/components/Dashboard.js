@@ -3,13 +3,14 @@ import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import * as a from "../actions/index";
 import firebase from "firebase";
-import { isLoaded, useFirestoreConnect } from "react-redux-firebase";
+import { isLoaded, useFirestore, useFirestoreConnect } from "react-redux-firebase";
 
 function Dashboard() {
   //Database Connection
   useFirestoreConnect([
     {collection: "surveys"}
   ]);
+  const firestore = useFirestore();
 
   //Variable Decelerations
   const auth = firebase.auth();
@@ -59,7 +60,7 @@ function Dashboard() {
     dispatch(action1);
   }
   function DeleteAction(id) {
-    console.log("pressed delete on " + id); //Replace with firestore .delete
+    firestore.delete({collection: "surveys", doc: id});
   }
   
 
