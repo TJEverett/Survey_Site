@@ -1,9 +1,13 @@
 import React from "react";
-import PropTypes from "prop-types";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import * as a from "../actions/index";
+import { useFirestore } from "react-redux-firebase";
 
-function SurveyAnswerForm(props) {
+function SurveyAnswerForm() {
+  //Variable Decelerations
+  const firestore = useFirestore();
+  const survey = useSelector(state => state.surveySelect);
+
   //CSS Styling
   const styleTable = {
     display: "grid",
@@ -44,9 +48,7 @@ function SurveyAnswerForm(props) {
     }
   }
 
-  //Value Logic
-  const { survey } = props;
-
+  //Dispatch Logic
   const dispatch = useDispatch();
   function FormSubmit(event){
     event.preventDefault();
@@ -60,7 +62,7 @@ function SurveyAnswerForm(props) {
       response4: event.target.response4.value,
       response5: event.target.response5.value
     }
-    console.log(newResponse); //Replace with firestore .add()
+    return firestore.collection("responses").add(newResponse);
   }
 
   //Return Logic
@@ -115,10 +117,6 @@ function SurveyAnswerForm(props) {
       </form>
     </React.Fragment>
   );
-}
-
-SurveyAnswerForm.propTypes = {
-  survey: PropTypes.object
 }
 
 export default SurveyAnswerForm;
