@@ -1,55 +1,16 @@
 import React from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { isLoaded, useFirestoreConnect } from "react-redux-firebase";
 import * as a from "../actions/index";
 
-function SurveyList(props) {
-  //Temp Values
-  const survey1 = {
-    id: "1a",
-    title: "Fruit Survey",
-    question1: "Rate your enjoyment of eating",
-    answer1: "stars",
-    question2: "Rate your enjoyment of fruit",
-    answer2: "stars",
-    question3: "What are your 3 favorite fruits?",
-    answer3: "text",
-    question4: "Rate your enjoyment of candy",
-    answer4: "stars",
-    question5: "What are your 3 favorite candies?",
-    answer5: "text"
-  };
-  const survey2 = {
-    id: "2b",
-    title: "Veggie Survey",
-    question1: "Rate your enjoyment of eating",
-    answer1: "stars",
-    question2: "Rate your enjoyment of vegetables",
-    answer2: "stars",
-    question3: "What are your 3 favorite vegetables?",
-    answer3: "text",
-    question4: "Rate your enjoyment of salads",
-    answer4: "stars",
-    question5: "What are your 3 favorite types of salad?",
-    answer5: "text"
-  };
-  const survey3 = {
-    id: "3c",
-    title: "Protein Survey",
-    question1: "Rate your enjoyment of eating",
-    answer1: "stars",
-    question2: "Rate your enjoyment of meat",
-    answer2: "stars",
-    question3: "What are your 3 favorite meats?",
-    answer3: "text",
-    question4: "Rate your enjoyment of seafood",
-    answer4: "stars",
-    question5: "What are your 3 favorite types of seafood?",
-    answer5: "text"
-  };
-  const surveys = [survey1, survey2, survey3];
+function SurveyList() {
+  //Database Connection
+  useFirestoreConnect([
+    {collection: "surveys"}
+  ]);
 
   //Value Logic
-  const listedSurveys = surveys;
+  const listedSurveys = useSelector(state => state.firestore.ordered.surveys);
 
   //Dispatch Logic
   const dispatch = useDispatch();
@@ -70,15 +31,21 @@ function SurveyList(props) {
   };
 
   //Return Logic
-  return (
-    <React.Fragment>
-      <ul>
-        {listedSurveys.map((entry) => {
-          return <li style={styleBubble} key={entry.id} onClick={() => RedirectToSurvey(entry)}><h2>{entry.title}</h2></li>
-        })}
-      </ul>
-    </React.Fragment>
-  );
+  if(!isLoaded(listedSurveys)){
+    return(
+      <h1>Loading...</h1>
+    );
+  }else{
+    return (
+      <React.Fragment>
+        <ul>
+          {listedSurveys.map((entry) => {
+            return <li style={styleBubble} key={entry.id} onClick={() => RedirectToSurvey(entry)}><h2>{entry.title}</h2></li>
+          })}
+        </ul>
+      </React.Fragment>
+    );
+  }
 }
 
 export default SurveyList;
