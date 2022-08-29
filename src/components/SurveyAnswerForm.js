@@ -44,7 +44,7 @@ function SurveyAnswerForm() {
     if(fieldType === "stars"){
       return BuildSelect(idValue);
     } else {
-      return <textarea name={idValue} placeholder="Response" style={styleTextArea} />
+      return <textarea name={idValue} placeholder="Response" required={true} style={styleTextArea} />
     }
   }
 
