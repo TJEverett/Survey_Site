@@ -60,6 +60,16 @@ function Dashboard() {
     dispatch(action1);
   }
   function DeleteAction(id) {
+    const batch = firestore.batch();
+    firestore.collection("responses").where("surveyId", "==", id).get()
+      .then((response) => {
+        response.forEach((doc) => {
+          batch.delete(doc.ref);
+        });
+      })
+      .then(() => {
+        batch.commit();
+      });
     firestore.delete({collection: "surveys", doc: id});
   }
   
