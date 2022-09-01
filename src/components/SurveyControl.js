@@ -14,7 +14,7 @@ function SurveyControl(){
   const currentUser = firebase.auth().currentUser;
   let correctUserBool = false;
   
-  if(surveySelect != null){
+  if(surveySelect != null && currentUser != null){
     correctUserBool = (currentUser.uid === surveySelect.creator);
   }
 
