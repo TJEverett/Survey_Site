@@ -17,7 +17,7 @@ This project was to gain practice with setting up and using Firebase Firestore D
 
 ### Diagram
 
-* [Diagram 1](diagram\Survey-Site.html)
+* [Diagram 1](diagram/Survey-Site.html)
 
 ## Setup/Installation Requirements
 
